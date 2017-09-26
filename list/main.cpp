@@ -52,8 +52,7 @@ int main() {
 	cout << "----------²âÊÔLList----------\n";
 	test(b);
 	cout << "----------LListÍê³É----------\n\n";
-	fclose(stdin);
-	
-	system("pause");
+	cin.clear();
+
 	return 0;
 }

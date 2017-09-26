@@ -64,10 +64,10 @@ long LList<T>::remove(const T& t) {
 	long n = 0;
 	for (Node* p=_head;p;) {
 		if (p->d == t) {
-			p = p->right;
 			POSITION pos;
 			pos.pointer = p;
 			remove(pos);
+			p = p->right;
 			n ++;
 		} else
 			p = p->right;
