@@ -44,6 +44,7 @@ public:
 	
 public:
 	AList();
+	~AList(); 
 	long length() { return _length; }
 	void append(const T&);
 	List<T>& reverse();
@@ -74,6 +75,7 @@ class LList : public List<T> {
 	
 public:
 	LList();
+	~LList();
 	long length() { return _length; }
 	void append(const T&);
 	List<T>& reverse();

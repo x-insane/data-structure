@@ -12,6 +12,11 @@ AList<T>::AList() {
 }
 
 template <typename T>
+AList<T>::~AList() {
+	delete[] data;
+}
+
+template <typename T>
 void AList<T>::swap(T& a, T& b) {
 	T tmp = a;
 	a = b;

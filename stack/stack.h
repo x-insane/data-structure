@@ -25,6 +25,7 @@ class AStack : public Stack<T> {
 	
 public:
 	AStack();
+	~AStack(); 
 	virtual long length() { return _length; }
 	virtual void push(const T&);
 	virtual const T& top() throw (const char*);
@@ -36,6 +37,11 @@ AStack<T>::AStack() {
 	data = new T[_initialSize];
 	_size = _initialSize;
 	_length = 0;
+}
+
+template <typename T>
+AStack<T>::~AStack() {
+	delete[] data;
 }
 
 template <typename T>
@@ -86,6 +92,7 @@ class LStack : public Stack<T> {
 	
 public:
 	LStack();
+	~LStack();
 	virtual long length() { return _length; }
 	virtual void push(const T&);
 	virtual const T& top() throw (const char*);
@@ -96,6 +103,17 @@ template <typename T>
 LStack<T>::LStack() {
 	_head = _tail = 0;
 	_length = 0;
+}
+
+template <typename T>
+LStack<T>::~LStack() {
+	if (!_length)
+		return;
+	for (Node* p=_head;p;p=p->right) {
+		if (p->left)
+			delete p->left;
+	}
+	delete _tail;
 }
 
 template <typename T>

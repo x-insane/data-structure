@@ -11,6 +11,11 @@ LList<T>::LList() {
 }
 
 template <typename T>
+LList<T>::~LList() {
+	clear();
+}
+
+template <typename T>
 void LList<T>::append(const T& t) {
 	Node* p = new Node;
 	p->d = t;
