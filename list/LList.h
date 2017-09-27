@@ -20,7 +20,7 @@ void LList<T>::append(const T& t) {
 	Node* p = new Node;
 	p->d = t;
 	p->left = p->right = 0;
-	if (!_head)
+	if (!_length)
 		_head = _tail = p;
 	else {
 		_tail->right = p;
