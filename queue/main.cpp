@@ -4,15 +4,17 @@ using namespace std;
 
 void test(Queue<int>& s) {
 	try {
-		for (int i=1;i<=106;++i) {
-			if (i%3)
-				s.push(i);
+		int v;
+		cout << "输出:"; 
+		while (cin >> v) { // 非0则入队，0则出队
+			if (v)
+				s.push(v);
 			else
-				s.pop();
+				cout << " " << s.pop();
 		}
-		cout << "共" << s.length() << "个: ";
-		while(s.length())
-			cout << s.pop() << " ";
+		cout << "\n剩余:";
+		while (s.length())
+			cout << " " << s.pop();
 	} catch (const char* e) {
 		cout << "\n-----" << e << "-----\n";
 	}
@@ -20,16 +22,26 @@ void test(Queue<int>& s) {
 }
 
 int main() {
+	
+	freopen("output.txt", "w", stdout);
+	
 	AQueue<int> a;
 	LQueue<int> b;
 	
+	freopen("input.txt", "r", stdin);
 	cout << "----------Test AQueue----------\n";
 	test(a);
 	cout << "\n----------AQueue Okay----------\n\n";
+	cin.clear();
 	
+	rewind(stdin);
 	cout << "----------Test LQueue----------\n";
 	test(b);
 	cout << "\n----------LQueue Okay----------\n";
+	cin.clear();
+	
+	fclose(stdin);
+	fclose(stdout);
 	
 	return 0;
 }

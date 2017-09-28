@@ -40,7 +40,9 @@ void test(List<int>& a) {
 
 int main() {
 	
-	freopen("list.in", "r", stdin); // 测试数据 
+	freopen("output.txt", "w", stdout);
+	
+	freopen("input.txt", "r", stdin); // 测试数据
 	AList<int> a;
 	cout << "----------测试AList----------\n";
 	test(a);
@@ -53,6 +55,9 @@ int main() {
 	test(b);
 	cout << "----------LList完成----------\n\n";
 	cin.clear();
+	
+	fclose(stdin);
+	fclose(stdout);
 
 	return 0;
 }
