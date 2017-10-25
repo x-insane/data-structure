@@ -16,6 +16,21 @@ public:
 		data = t;
 		left = right = 0;
 	}
+	~BinNode() {
+		clear();
+	}
+	void clear() {
+		if (left) {
+			left->clear();
+			delete left;
+			left = 0;
+		}
+		if (right) {
+			right->clear();
+			delete right;
+			right = 0;
+		}
+	}
 	BinNode* insert(const T& t) {
 		if (rand() % 2)
 			left = left ? left->insert(t) : (new BinNode(t));
