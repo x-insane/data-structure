@@ -1,29 +1,29 @@
-#ifndef __LEFT_CHILD_RIGHT_SIBLING_H__
-#define __LEFT_CHILD_RIGHT_SIBLING_H__
+#ifndef __LINK_BASED_DYNAMIC_CHILDREN_TREE_H__
+#define __LINK_BASED_DYNAMIC_CHILDREN_TREE_H__
 
 #include "tree.h"
 #include <iostream>
 using namespace std;
 
 template<typename T>
-class LCRSTNode : public GTNodeADT<T> {
+class LDCTNode : public GTNodeADT<T> {
 	T _d;
-	LCRSTNode<T>* _left; // child
-	LCRSTNode<T>* _right; // sibling
-	LCRSTNode<T>* _parent; // parent
+	LDCTNode* _parent;
+	LDCTNode* _next;
+	LDCTNode* _child;
 public:
-	LCRSTNode(const T& data) {
+	LDCTNode(const T& data) {
 		_d = data;
-		_left = _right = _parent = 0;
+		_child = _next = _parent = 0;
 	}
-	~LCRSTNode() {
-		if (!_left)
+	~LDCTNode() {
+		if (!_child)
 			return;
-		LCRSTNode<T>* lp = _left, *p = _left->_right;
+		LDCTNode<T>* lp = _child, *p = _child->_next;
 		while (p) {
 			delete lp;
 			lp = p;
-			p = p->_right;
+			p = p->_next;
 		}
 		delete lp;
 	}
@@ -34,79 +34,79 @@ public:
 		_d = data;
 	}
 	virtual bool isLeaf() {
-		return !_left;
+		return !_child;
 	}
 	virtual GTNodeADT<T>* parent() {
 		return _parent;
 	}
 	virtual GTNodeADT<T>* firstChild() {
-		return _left;
+		return _child;
 	}
 	virtual GTNodeADT<T>* next() {
-		return _right;
+		return _next;
 	}
 	virtual void insertChild(GTNodeADT<T>* t) {
-		LCRSTNode<T>* p = (LCRSTNode<T>*)t;
-		p->_right = _left;
+		LDCTNode<T>* p = (LDCTNode<T>*)t;
+		p->_next = _child;
 		p->_parent = this;
-		_left = p;
+		_child = p;
 	}
 	virtual void insertChild(const T& t) {
-		insertChild(new LCRSTNode<T>(t));
+		insertChild(new LDCTNode<T>(t));
 	}
 	virtual void insertSibling(GTNodeADT<T>* t) {
-		LCRSTNode<T>* p = (LCRSTNode<T>*)t;
-		p->_right = _right;
+		LDCTNode<T>* p = (LDCTNode<T>*)t;
+		p->_next = _next;
 		p->_parent = _parent;
-		_right = p;
+		_next = p;
 	}
 	virtual void insertSibling(const T& t) {
-		insertSibling(new LCRSTNode<T>(t));
+		insertSibling(new LDCTNode<T>(t));
 	}
 	virtual void removeFirstChild() {
-		if (!_left)
+		if (!_child)
 			return;
-		LCRSTNode<T>* p = _left;
-		_left = p->_right;
+		LDCTNode<T>* p = _child;
+		_child = p->_next;
 		delete p;
 	}
 	virtual void removeNextSibling() {
-		if (!_right)
+		if (!_next)
 			return;
-		LCRSTNode<T>* p = _right;
-		_right = p->_right;
+		LDCTNode<T>* p = _next;
+		_next = p->_next;
 		delete p;
 	}
 	// virtual void print() {
 	// 	cout << "Value: " << _d << endl;
 	// 	cout << "Children: ";
-	// 	LCRSTNode<T>* p = _left;
+	// 	LDCTNode<T>* p = _child;
 	// 	while (p) {
 	// 		cout << p->_d << " ";
-	// 		p = p->_right;
+	// 		p = p->_next;
 	// 	}
 	// 	cout << endl << "Right-Siblings:";
-	// 	p = _right;
+	// 	p = _next;
 	// 	while (p) {
 	// 		cout << p->_d << " ";
-	// 		p = p->_right;
+	// 		p = p->_next;
 	// 	}
 	// 	cout << endl;
 	// }
 };
 
 template<typename T>
-class LCRSTree : public GTree<T> {
+class LDCTree : public GTree<T> {
 public:
-	LCRSTree() {
+	LDCTree() {
 		this->_now = this->_root = 0;
 	}
-	LCRSTree(LCRSTNode<T>* root) {
+	LDCTree(LDCTNode<T>* root) {
 		this->_now = this->_root = root;
 	}
 	virtual void newRoot(const T& t) {
 		this->clear();
-		this->_now = this->_root = new LCRSTNode<T>(t);
+		this->_now = this->_root = new LDCTNode<T>(t);
 	}
 };
 

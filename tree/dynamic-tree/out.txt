@@ -1,0 +1,128 @@
+-------------TEST 1--------------
+> new 2
+> insert child 5
+> move child & insert child 9
+> move child & insert child 4
+> move root
+> insert child 7
+> move child & insert child 6
+> move child & insert child 11
+> insert child 5 & move parent
+> insert child 2 & move root
+> print
+Value: 2
+Children: 7 5
+Right-Siblings:
+> move root & print
+Value: 2
+Children: 7 5
+Right-Siblings:
+> move child & print
+Value: 7
+Children: 2 6
+Right-Siblings:5
+> move child & move next & print
+Value: 6
+Children: 5 11
+Right-Siblings:
+> move root
+> move child & move next & print
+Value: 5
+Children: 9
+Right-Siblings:
+> move child & print
+Value: 9
+Children: 4
+Right-Siblings:
+> move child & print
+Value: 4
+Children:
+Right-Siblings:
+> exit
+Bye.
+
+-------------TEST 2--------------
+> new 2
+> insert child 5
+> move child & insert child 9
+> move child & insert child 4
+> move root
+> insert child 7
+> move child & insert child 6
+> move child & insert child 11
+> insert child 5 & move parent
+> insert child 2 & move root
+> print
+Value: 2
+Children: 7 5
+Right-Siblings:
+> move root & print
+Value: 2
+Children: 7 5
+Right-Siblings:
+> move child & print
+Value: 7
+Children: 2 6
+Right-Siblings:5
+> move child & move next & print
+Value: 6
+Children: 5 11
+Right-Siblings:
+> move root
+> move child & move next & print
+Value: 5
+Children: 9
+Right-Siblings:
+> move child & print
+Value: 9
+Children: 4
+Right-Siblings:
+> move child & print
+Value: 4
+Children:
+Right-Siblings:
+> exit
+Bye.
+
+-------------TEST 3--------------
+> new 2
+> insert child 5
+> move child & insert child 9
+> move child & insert child 4
+> move root
+> insert child 7
+> move child & insert child 6
+> move child & insert child 11
+> insert child 5 & move parent
+> insert child 2 & move root
+> print
+Value: 2
+Children: 7 5
+Right-Siblings:
+> move root & print
+Value: 2
+Children: 7 5
+Right-Siblings:
+> move child & print
+Value: 7
+Children: 2 6
+Right-Siblings:5
+> move child & move next & print
+Value: 6
+Children: 5 11
+Right-Siblings:
+> move root
+> move child & move next & print
+Value: 5
+Children: 9
+Right-Siblings:
+> move child & print
+Value: 9
+Children: 4
+Right-Siblings:
+> move child & print
+Value: 4
+Children:
+Right-Siblings:
+> exit
+Bye.

@@ -1,7 +1,10 @@
 #include <iostream>
+#include <cstdio>
 #include <sstream>
 #include <cstring>
 #include "lcrs.h"
+#include "ldct.h"
+#include "adct.h"
 using namespace std;
 
 void flush() {
@@ -10,9 +13,8 @@ void flush() {
 	cout << "> ";
 }
 
-template<typename Tree>
-void test(Tree*) {
-	GTNodeADT<int>* root = 0, *p = 0;
+template<typename T>
+void test(GTreeADT<T>* tree) {
 	string cmdstr;
 	flush();
 	bool conti = false;
@@ -22,6 +24,10 @@ void test(Tree*) {
 		if (!conti) {
 			ss.clear();
 			ss.str("");
+			if (cmdstr == "") {
+				flush();
+				continue;
+			}
 			ss << cmdstr;
 		}
 		ss >> cmd;
@@ -29,25 +35,23 @@ void test(Tree*) {
 		if (cmd == "new") {
 			int t;
 			if (ss >> t) {
-				if (root)
-					delete root;
-				p = root = new Tree(t);
+				tree->newRoot(t);
 			} else
 				cout << "Wrong input value." << endl;
-		} else if (!root) {
+		} else if (!tree->root()) {
 			cout << "There is no tree. Please new first." << endl;
 			flush();
 			continue;
 		} else if (cmd == "print") {
-			p->print();
+			tree->print();
 		} else if (cmd == "insert") {
 			string option;
 			int t;
 			if (ss >> option >> t) {
 				if (option == "child")
-					p->insertChild(t);
+					tree->insertChild(t);
 				else if (option == "next")
-					p->insertSibling(t);
+					tree->insertSibling(t);
 				else {
 					cout << "Wrong input. Please type 'insert child/next value'" << endl;
 					flush();
@@ -62,37 +66,28 @@ void test(Tree*) {
 			string option;
 			if (ss >> option) {
 				if (option == "child") {
-					GTNodeADT<int>* tmp = p->firstChild();
-					if (tmp)
-						p = tmp;
-					else {
+					if (!tree->moveFirstChild()) {
 						cout << "This node has no child." << endl;
 						flush();
 						continue;
 					}
 				}
 				else if (option == "next") {
-					GTNodeADT<int>* tmp = p->next();
-					if (tmp)
-						p = tmp;
-					else {
+					if (!tree->moveNext()) {
 						cout << "This node has no right sibling." << endl;
 						flush();
 						continue;
 					}
 				}
 				else if (option == "parent") {
-					GTNodeADT<int>* tmp = p->parent();
-					if (tmp)
-						p = tmp;
-					else {
+					if (!tree->moveParent()) {
 						cout << "This node has no parent node." << endl;
 						flush();
 						continue;
 					}
 				}
 				else if (option == "root")
-					p = root;
+					tree->moveRoot();
 				else {
 					cout << "Wrong input. Please type 'move root/parent/child/next'" << endl;
 					flush();
@@ -100,6 +95,31 @@ void test(Tree*) {
 				}
 			} else {
 				cout << "Wrong input. Please type 'move root/parent/child/next'" << endl;
+				flush();
+				continue;
+			}
+		} else if (cmd == "remove") {
+			string option;
+			if (ss >> option) {
+				if (option == "child") {
+					if (tree->firstChild())
+						tree->removeFirstChild();
+					else
+						cout << "This node has no child." << endl;
+				}
+				else if (option == "next") {
+					if (tree->next())
+						tree->removeNextSibling();
+					else
+						cout << "This node has no right sibling." << endl;
+				}
+				else {
+					cout << "Wrong input. Please type 'remove child/next'" << endl;
+					flush();
+					continue;
+				}
+			} else {
+				cout << "Wrong input. Please type 'remove child/next'" << endl;
 				flush();
 				continue;
 			}
@@ -117,6 +137,15 @@ void test(Tree*) {
 }
 
 int main() {
-	test((LCRSTNode<int>*)0);
+	// freopen("in.txt", "r", stdin); // input data, 3 times
+	LCRSTree<int> t1;
+	LDCTree<int> t2;
+	ADCTree<int> t3;
+	cout << "-------------TEST 1--------------" << endl;
+	test(&t1);
+	cout << endl << endl << "-------------TEST 2--------------" << endl;
+	test(&t2);
+	cout << endl << endl << "-------------TEST 3--------------" << endl;
+	test(&t3);
 	return 0;
 }

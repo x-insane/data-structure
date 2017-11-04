@@ -1,0 +1,19 @@
+new 2
+insert child 5
+move child & insert child 9
+move child & insert child 4
+move root
+insert child 7
+move child & insert child 6
+move child & insert child 11
+insert child 5 & move parent
+insert child 2 & move root
+print
+move root & print
+move child & print
+move child & move next & print
+move root
+move child & move next & print
+move child & print
+move child & print
+exit
