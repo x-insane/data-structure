@@ -14,7 +14,7 @@ using namespace std;
 #define TEST_BIG_NUM 100000
 
 void generate() {
-	ofstream out("input.txt");
+	ofstream out("data/input.txt");
 	srand(time(0));
 	for (int i=0;i<TEST_GROUP_NUM;++i) {
 		for (int j=0;j<TEST_EACH_NUM;++j)
@@ -25,7 +25,7 @@ void generate() {
 }
 
 void generate_big() {
-	ofstream out("input-big.txt");
+	ofstream out("data/input-big.txt");
 	srand(time(0));
 	for (int i=0;i<TEST_BIG_NUM;++i)
 		out << ((rand()+1)*(rand()+1)+1) % (TEST_BIG_NUM*100) << " ";
@@ -35,8 +35,8 @@ void generate_big() {
 void testA() {
 	clock_t a, b;
 	a = clock();
-	ifstream in("input.txt");
-	ofstream out("outputA.txt");
+	ifstream in("data/input.txt");
+	ofstream out("data/outputA.txt");
 	string s;
 	while (getline(in, s)) {
 		stringstream in(s);
@@ -60,8 +60,8 @@ void testA() {
 void testL() {
 	clock_t a, b;
 	a = clock();
-	ifstream in("input.txt");
-	ofstream out("outputL.txt");
+	ifstream in("data/input.txt");
+	ofstream out("data/outputL.txt");
 	string s;
 	while (getline(in, s)) {
 		stringstream in(s);
@@ -89,8 +89,8 @@ void testL() {
 void testA_big() {
 	clock_t a, b;
 	a = clock();
-	ifstream in("input-big.txt");
-	ofstream out("outputA-big.txt");
+	ifstream in("data/input-big.txt");
+	ofstream out("data/outputA-big.txt");
 	long* d = new long[TEST_BIG_NUM];
 	memset(d, 0, TEST_BIG_NUM*sizeof(long));
 	int n = 0;
@@ -110,8 +110,8 @@ void testA_big() {
 void testL_big() {
 	clock_t a, b;
 	a = clock();
-	ifstream in("input-big.txt");
-	ofstream out("outputL-big.txt");
+	ifstream in("data/input-big.txt");
+	ofstream out("data/outputL-big.txt");
 	int tmp;
 	Node<int>* head = 0, *p = 0;
 	while (in >> tmp) {
@@ -132,7 +132,7 @@ void testL_big() {
 }
 
 int main() {
-	freopen("result.txt", "w", stdout);
+	freopen("data/result.txt", "w", stdout);
 	generate();
 	generate_big();
 	testA();

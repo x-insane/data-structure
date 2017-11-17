@@ -1,4 +1,0 @@
-test array-based mergesort cost 8 ms
-test linked mergesort cost 6 ms
-test array-based mergesort with big data cost 78 ms
-test linked mergesort with big data cost 96 ms
