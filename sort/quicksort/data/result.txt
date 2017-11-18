@@ -1,0 +1,9 @@
+quicksort: 125 ms & 7502 ms
+quicksort-a: 90 ms & 7027 ms
+quicksort-b-3: 91 ms & 7092 ms
+quicksort-b-4: 97 ms & 7161 ms
+quicksort-b-5: 92 ms & 7189 ms
+quicksort-b-6: 93 ms & 7674 ms
+quicksort-b-7: 93 ms & 7257 ms
+quicksort-b-8: 96 ms & 7162 ms
+quicksort-c: 91 ms & 6944 ms
