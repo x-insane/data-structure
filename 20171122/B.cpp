@@ -6,18 +6,13 @@ using namespace std;
 class CharBinNode {
 	CharBinNode* left;
 	CharBinNode* right;
-	CharBinNode* parent;
 	char data;
-public:
-	static char last;
-	static int abs(int x) {
-		return x > 0 ? x : -x;
-	}
+	bool full;
 public:
 	CharBinNode(const char& t) {
 		data = t;
-		left = right = parent = 0;
-		last = t;
+		left = right = 0;
+		full = false;
 	}
 	~CharBinNode() {
 		clear();
@@ -34,27 +29,22 @@ public:
 			right = 0;
 		}
 	}
-	CharBinNode* insert(const char& t) {
-		if (data >= 'a') {
-			if (left)
-				return left->insert(t);
-			else {
-				left = new CharBinNode(t);
-				left->parent = this;
-				return left;
-			}
+	bool insert(const char& t) {
+		if (!left) {
+			left = new CharBinNode(t);
+			if (t <= 'Z')
+				left->full = true;
 		}
-		return parent->insertRight(t);
-	}
-	CharBinNode* insertRight(const char& t) {
-		if (!right) {
+		else if (!left->full)
+			left->insert(t);
+		else if (!right) {
 			right = new CharBinNode(t);
-			right->parent = this;
-			return right;
+			if (t <= 'Z')
+				full = right->full = true;
 		}
-		else if (right->data <= 'Z')
-			return parent->insertRight(t);
-		return right->insert(t);
+		else if (!right->full)
+			full = right->insert(t);
+		return full;
 	}
 	int height() {
 		int lh = left ? left->height() : 0;
@@ -74,10 +64,8 @@ public:
 	}
 };
 
-char CharBinNode::last = 0;
-
 int main() {
-	CharBinNode* head = 0, *p = 0;
+	CharBinNode* head = 0;
 	int n;
 	cin >> n;
 	string s;
@@ -86,8 +74,14 @@ int main() {
 		getline(cin, s);
 		stringstream ss(s);
 		char tmp;
-		while (ss >> tmp)
-			p = head ? p->insert(tmp) : (head = new CharBinNode(tmp));
+		while (ss >> tmp) {
+			if (!(tmp>='a'&&tmp<='z') && !(tmp>='A'&&tmp<='Z'))
+				continue;
+			if (head)
+				head->insert(tmp);
+			else
+				head = new CharBinNode(tmp);
+		}
 		cout << (head->balanced() ? 'B' : 'N') << endl;
 		delete head;
 		head = 0;
