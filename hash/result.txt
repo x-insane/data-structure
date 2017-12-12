@@ -1,0 +1,4 @@
+n = 1000000
+linear probe: insert 4119 ms & remove 3314 ms
+quadratic probe: insert 3258 ms & remove 3241 ms
+random probe: insert 3267 ms & remove 3247 ms
