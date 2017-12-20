@@ -15,17 +15,14 @@ private:
 	void sift_down(int i) {
 		int l = 2*i+1;
 		int r = 2*i+2;
-		int m = 0;
+		int m = i;
 		if (l < n && d[l] < d[i])
-			m = -1;
+			m = l;
 		if (r < n && d[r] < d[i]) {
-			if (m == 0 || (m == -1 && d[r] < d[l]))
-				m = 1;
+			if (m == i || (m == l && d[r] < d[l]))
+				m = r;
 		}
-		if (m == -1)
-			make_first_bigger(d[l], d[i]);
-		else if (m == 1)
-			make_first_bigger(d[r], d[i]);
+		make_first_bigger(d[m], d[i]);
 		if (2*l+1 < n)
 			sift_down(l);
 		if (2*r+1 < n)
