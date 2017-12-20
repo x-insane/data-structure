@@ -1,16 +1,10 @@
 #include <iostream>
 using namespace std;
 
-class TreeSort {
+class HeapSort {
 	int* d;
 	int n;
-public:
-	TreeSort(int* data, int n) {
-		d = data;
-		this->n = n;
-		for (int i=(n-1)/2;i>=0;i--)
-			sift_down(i);
-	}
+private:
 	void make_first_bigger(int& a, int& b) {
 		if (a < b) {
 			int tmp = a;
@@ -32,10 +26,17 @@ public:
 			make_first_bigger(d[l], d[i]);
 		else if (m == 1)
 			make_first_bigger(d[r], d[i]);
-		if (l < n)
+		if (2*l+1 < n)
 			sift_down(l);
-		if (r < n)
+		if (2*r+1 < n)
 			sift_down(r);
+	}
+public:
+	HeapSort(int* data, int n) {
+		d = data;
+		this->n = n;
+		for (int i=(n-1)/2;i>=0;i--)
+			sift_down(i);
 	}
 	void print() {
 		cout << d[0];
@@ -57,7 +58,7 @@ int main() {
 	int data[100000];
 	int n = 0;
 	while (cin >> data[n++]);
-	TreeSort ts(data, --n);
+	HeapSort ts(data, --n);
 	ts.print();
 	ts.sort();
 	ts.print();
